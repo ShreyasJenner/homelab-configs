@@ -1,0 +1,27 @@
+name: slskd
+services:
+  slskd:
+    image: slskd/slskd:latest
+    container_name: slskd
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    ports:
+      - "5030:5030"
+      - "5031:5031"
+      - "50300:50300"
+    environment:
+      SLSKD_REMOTE_CONFIGURATION: ${SLSKD_REMOTE_CONFIG}
+      SLSKD_USERNAME: ${SLSKD_USERNAME}
+      SLSKD_PASSWORD: ${SLSKD_PASSWORD}
+      SLSKD_WEB_USERNAME: ${SLSKD_WEB_USERNAME}
+      SLSKD_WEB_PASSWORD: ${SLSKD_WEB_PASSWORD}
+      SLSKD_SHARED_DIR: ${SLSKD_SHARED_DIR}
+      PUID: ${PUID}
+      GUID: ${GUID}
+    volumes:
+      - ./appdata:/app
+      - /home/nyarlathotep/media/music:/app/shared/music:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

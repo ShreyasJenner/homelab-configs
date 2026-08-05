@@ -1,0 +1,15 @@
+name: navidrome
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    ports:
+      - "4533:4533"
+    environment:
+      ND_SCANSCHEDULE: ${ND_SCANSCHEDULE}
+      ND_LOGLEVEL: ${ND_LOGLEVEL}
+      ND_SESSIONTIMEOUT: ${ND_SESSIONTIMEOUT}
+    volumes:
+      - "./data:/data"
+      - "/home/nyarlathotep/media/music:/music:ro"
