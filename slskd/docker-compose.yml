@@ -1,16 +1,33 @@
 name: slskd
 services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - ./wireguard-config:/config
+      - /lib/modules:/lib/modules
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    ports:
+      - "5030:5030"    # slskd web UI (HTTP) — published here, not on slskd
+      - "5031:5031"    # slskd web UI (HTTPS)
+      - "50300:50300"  # not actually reachable from outside directly (CGNAT),
+                        # but harmless to publish; real inbound path is via the VPS
+    restart: unless-stopped
+
   slskd:
     image: slskd/slskd:latest
     container_name: slskd
-    restart: unless-stopped
-    dns:
-      - 1.1.1.1
-      - 8.8.8.8
-    ports:
-      - "5030:5030"
-      - "5031:5031"
-      - "50300:50300"
+    network_mode: "service:wireguard"
+    depends_on:
+      - wireguard
     environment:
       SLSKD_REMOTE_CONFIGURATION: ${SLSKD_REMOTE_CONFIG}
       SLSKD_USERNAME: ${SLSKD_USERNAME}
@@ -23,5 +40,4 @@ services:
     volumes:
       - ./appdata:/app
       - /home/nyarlathotep/media/music:/app/shared/music:ro
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
