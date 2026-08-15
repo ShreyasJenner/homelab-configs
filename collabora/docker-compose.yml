@@ -1,0 +1,18 @@
+services:
+  collabora:
+    image: collabora/code
+    container_name: collabora
+    restart: unless-stopped
+    cap_add:
+      - MKNOD
+      - SYS_ADMIN
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    ports:
+      - "9980:9980"
+    environment:
+      - domain=debian-server\\.tailc65362\\.ts\\.net
+      - username=${USERNAME}
+      - password=${PASSWORD}
+      - extra_params=--o:ssl.enable=false --o:ssl.termination=true --o:storage.wopi.host[0]=192\.168\.0\.251 --o:storage.wopi.host[1]=debian-server\.tailc65362\.ts\.net --o:server_name=debian-server.tailc65362.ts.net:8443
