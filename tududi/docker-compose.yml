@@ -1,0 +1,19 @@
+name: tududi
+services:
+  tududi:
+    image: 'chrisvel/tududi:latest'
+    ports:
+      - "${PORT}:3002"
+    volumes:
+      - ./tududi_db:/app/db
+      - ./tududi_uploads:/app/uploads
+    environment:
+      - TUDUDI_USER_EMAIL=${EMAIL}
+      - TUDUDI_USER_PASSWORD=${PASSWD}
+      - TUDUDI_SESSION_SECRET=${SECRET}
+      - TUDUDI_ALLOWED_ORIGIN=${ALLOWED_URL}:${PORT}
+      - TUDUDI_TRUST_PROXY=true
+      - CALDAV_ENABLED=true
+      - ENCRYPTION_KEY=$(openssl rand -hex 32)
+      - PUID=1000
+      - GUID=1000

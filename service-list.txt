@@ -1,0 +1,17 @@
+HOME SERVER — SERVICES & PORTS
+
+Service      Local/Docker Port         Tailscale Port Scope
+---------------------------------------------------------------------------------
+Nextcloud    8080->80 (db: 3306, int)   443           Funnel
+Navidrome    4533->4533                 6443          
+slskd        5030-5031, 50300           5443          
+Donetick     2021->2021                 10000         
+Kavita       5000->5000                 7443          
+OnlyOffice   9981->80 (443 int, unused) 8443          Funnel
+qBittorrent  8090->8080, 6881 tcp/udp   9443          
+tududi	     7010->7010		        8010	      
+
+WIREGUARD SIDECARS
+
+wireguard   -> paired with slskd  -> routes slskd's entire network path through the VPS relay (CGNAT workaround for Soulseek P2P reachability)
+wireguard2  -> paired with qbittorrent -> separate tunnel for qBittorrent's torrent traffic
