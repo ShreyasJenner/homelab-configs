@@ -24,7 +24,7 @@ services:
     volumes:
       - ./data:/var/www/html
       - /home/nyarlathotep/media/manga:/mnt/manga # kavita external storage link
-      - /home/nyarlathotep/downloads/torrents/:/mnt/torrents:ro # qbittorrent external storage link
+      - /home/nyarlathotep/downloads/torrents/:/mnt/torrents # qbittorrent external storage link
       - /home/nyarlathotep/backup/vns/:/mnt/backup/vns # vn external storage link
     environment:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD} 

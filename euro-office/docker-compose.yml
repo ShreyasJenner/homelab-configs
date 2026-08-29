@@ -1,0 +1,18 @@
+services:
+  euro-office:
+    image: ghcr.io/euro-office/documentserver:latest
+    container_name: euro-office
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT}:${DOCKER_PORT}"
+    environment:
+      - JWT_ENABLED=true
+      - JWT_SECRET=${JWT_SECRET}
+    volumes:
+      - ./data:/var/lib/euro-office/documentserver
+      - euro-office-logs:/var/log/euro-office/documentserver
+      - euro-office-config:/etc/euro-office/documentserver
+
+volumes:
+  euro-office-logs:
+  euro-office-config:
