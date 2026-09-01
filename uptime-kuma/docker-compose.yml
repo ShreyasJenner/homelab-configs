@@ -4,12 +4,12 @@ services:
     container_name: uptime-kuma
     restart: always
     ports:
-      - "3001:3001"  # This maps the container port "3001" to the host port "3001"
+      - "${HOST_PORT}:${DOCKER_PORT}"  
     volumes:
-      - ./data:/app/data  # Configuring persistent storage
+      - ${DATA_DIR_PATH}:/app/data
     network_mode: host
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      test: ["CMD", "curl", "-f", "http://localhost:${DOCKER_PORT}"]
       interval: 30s
       retries: 3
       start_period: 10s

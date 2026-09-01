@@ -10,9 +10,9 @@ services:
       - seccomp=unconfined
       - apparmor=unconfined
     ports:
-      - "9980:9980"
+      - "${HOST_PORT}:${DOCKER_PORT}"
     environment:
-      - domain=debian-server\\.tailc65362\\.ts\\.net
+      - domain=${DOMAIN}
       - username=${USERNAME}
       - password=${PASSWORD}
-      - extra_params=--o:ssl.enable=false --o:ssl.termination=true --o:storage.wopi.host[0]=192\.168\.0\.251 --o:storage.wopi.host[1]=debian-server\.tailc65362\.ts\.net --o:server_name=debian-server.tailc65362.ts.net:8443
+      - extra_params=${EXTRA_PARAMS}

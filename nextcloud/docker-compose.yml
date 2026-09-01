@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
     volumes:
-      - ./db:/var/lib/mysql
+      - ${MYSQL_DB_PATH}:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
@@ -18,14 +18,14 @@ services:
     container_name: nextcloud_app
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - "${APP_HOST_PORT}:${APP_DOCKER_PORT}"
     links:
       - db
     volumes:
-      - ./data:/var/www/html
-      - /home/nyarlathotep/media/manga:/mnt/manga # kavita external storage link
-      - /home/nyarlathotep/downloads/torrents/:/mnt/torrents # qbittorrent external storage link
-      - /home/nyarlathotep/backup/vns/:/mnt/backup/vns # vn external storage link
+      - ${HTML_DIR_PATH}:/var/www/html
+      - ${KAVITA_DIR_PATH}:/mnt/manga # kavita external storage link
+      - ${TORRENT_DIR_PATH}:/mnt/torrents # qbittorrent external storage link
+      - ${VN_DIR_PATH}:/mnt/backup/vns # vn external storage link
     environment:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD} 
       MYSQL_DATABASE: ${MYSQL_DATABASE} 

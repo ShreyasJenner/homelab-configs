@@ -2,9 +2,9 @@ services:
   actual_server:
     image: docker.io/actualbudget/actual-server:latest
     ports:
-      - '5006:5006'
+      - '${HOST_PORT}:${DOCKER_PORT}'
     volumes:
-      - ./data:/data
+      - ${DATA_DIR_PATH}:/data
     healthcheck:
       # Enable health check for the instance
       test: ['CMD-SHELL', 'node scripts/health-check.js']

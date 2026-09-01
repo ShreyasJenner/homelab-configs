@@ -4,9 +4,9 @@ services:
     container_name: kavita
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "${HOST_PORT}:${DOCKER_PORT}"
     environment:
       - TZ=${TZ}
     volumes:
-      - ./config:/kavita/config
-      - /home/nyarlathotep/media/manga:/manga:ro
+      - ${CONFIG_DIR_PATH}:/kavita/config
+      - ${MANGA_DIR_PATH}:/manga:ro

@@ -7,18 +7,18 @@ services:
       - NET_ADMIN
       - SYS_MODULE
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Asia/Kolkata
+      - PUID=${WPUID}
+      - PGID=${WPGID}
+      - TZ=${WTZ}
     volumes:
       - ./wireguard-config:/config
       - /lib/modules:/lib/modules
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     ports:
-      - "5030:5030"    # slskd web UI (HTTP) — published here, not on slskd
-      - "5031:5031"    # slskd web UI (HTTPS)
-      - "50300:50300"  # not actually reachable from outside directly (CGNAT),
+      - "${HTTP_HOST_PORT}:${HTTP_DOCKER_PORT}"    # slskd web UI (HTTP) — published here, not on slskd
+      - "${HTTPS_HOST_PORT}:${HTTPS_DOCKER_PORT}"    # slskd web UI (HTTPS)
+      - "${VPS_HOST_PORT}:${VPS_DOCKER_PORT}"  # not actually reachable from outside directly (CGNAT),
                         # but harmless to publish; real inbound path is via the VPS
     restart: unless-stopped
 
@@ -38,6 +38,6 @@ services:
       PUID: ${PUID}
       GUID: ${GUID}
     volumes:
-      - ./appdata:/app
-      - /home/nyarlathotep/media/music:/app/shared/music:ro
+      - ${SLSKD_APP_DIR}:/app
+      - ${SLSKD_MUSIC_DIR}:/app/shared/music:ro
     restart: unless-stopped

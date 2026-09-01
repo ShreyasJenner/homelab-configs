@@ -5,18 +5,18 @@ services:
     container_name: mindwtr-cloud
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:8787/health >/dev/null || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS http://localhost:${CLOUD_DOCKER_PORT}/health >/dev/null || exit 1"]
       interval: 1m30s
       timeout: 10s
       retries: 3
       start_period: 30s
     ports:
-      - "6002:8787"
+      - "${CLOUD_HOST_PORT}:${CLOUD_DOCKER_PORT}"
     environment:
       - MINDWTR_CLOUD_AUTH_TOKENS=${AUTH_TOKEN:?MINDWTR_CLOUD_AUTH_TOKENS must be set}
       - MINDWTR_CLOUD_CORS_ORIGIN=${MINDWTR_CLOUD_CORS_ORIGIN:?MINDWTR_CLOUD_CORS_ORIGIN must be set}
     volumes:
-      - ./data:/app/cloud_data
+      - ${CLOUD_DATA_DIR_PATH}:/app/cloud_data
 
   mindwtr-app:
     image: ghcr.io/dongdongbh/mindwtr-app:latest
@@ -26,4 +26,4 @@ services:
       mindwtr-cloud:
         condition: service_healthy
     ports:
-      - "6001:5173"
+      - "${APP_HOST_PORT}:${APP_DOCKER_PORT}"

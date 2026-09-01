@@ -6,10 +6,10 @@ services:
     ports:
       - "${HOST_PORT}:${DOCKER_PORT}"
     environment:
-      - JWT_ENABLED=true
+      - JWT_ENABLED=${JWT_ENABLED}
       - JWT_SECRET=${JWT_SECRET}
     volumes:
-      - ./data:/var/lib/euro-office/documentserver
+      - ${DOCUMENTSERVER_PATH}:/var/lib/euro-office/documentserver
       - euro-office-logs:/var/log/euro-office/documentserver
       - euro-office-config:/etc/euro-office/documentserver
 

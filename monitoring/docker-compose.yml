@@ -54,3 +54,34 @@ services:
       - ./grafana/data:/var/lib/grafana
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWD}
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    ports: 
+      - "${LOKI_HOST_PORT}:3100"
+    volumes: 
+      - ./loki/loki-config.yml:/etc/loki/local-config.yaml:ro
+      - ./loki/data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy
+    restart: unless-stopped
+    ports:
+      - "${ALLOY_HOST_PORT}:12345"
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/log/journal:/var/log/journal:ro
+      - /etc/machine-id:/etc/machine-id:ro
+      - /home/nyarlathotep/docker/slskd/logs/organize_webhook.log:/home/nyarlathotep/docker/slskd/logs/organize_webhook.log:ro
+    command:
+      - run
+      - /etc/alloy/config.alloy
+      - --server.http.listen-addr=0.0.0.0:12345
+    depends_on:
+      - loki
