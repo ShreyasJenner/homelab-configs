@@ -25,6 +25,9 @@ alloy         12983->12345                 12982
 actual-budget 5006->5006		           5007
 ntfy	      10100->80         	       10110
 
+jellyfin-tcp  8069->8096                   8096
+jellyfin-udp  7395->7359                   7359
+
 WIREGUARD SIDECARS
 
 wireguard   -> paired with slskd  -> routes slskd's entire network path through the VPS relay (CGNAT workaround for Soulseek P2P reachability)

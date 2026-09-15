@@ -23,7 +23,8 @@ services:
       - db
     volumes:
       - ${HTML_DIR_PATH}:/var/www/html
-      - ${KAVITA_DIR_PATH}:/mnt/manga # kavita external storage link
+      - ${KAVITA_MANGA_DIR_PATH}:/mnt/manga # kavita manga dir external storage link
+      - ${KAVITA_LN_DIR_PATH}:/mnt/lns # kavita lns dir external storage link
       - ${TORRENT_DIR_PATH}:/mnt/torrents # qbittorrent external storage link
       - ${VN_DIR_PATH}:/mnt/backup/vns # vn external storage link
     environment:

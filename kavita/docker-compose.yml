@@ -10,3 +10,5 @@ services:
     volumes:
       - ${CONFIG_DIR_PATH}:/kavita/config
       - ${MANGA_DIR_PATH}:/manga:ro
+      - ${LN_DIR_PATH}:/lns:ro
+      - ${SOFTLINK_COMPAT_PATH}:${SOFTLINK_COMPAT_PATH}:ro # path for soft-linked files

@@ -1,0 +1,26 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: ${UID}:${GID}
+    ports:
+      - ${TCP_HOST_PORT}:${TCP_CONTAINER_PORT}/tcp
+      - ${UDP_HOST_PORT}:${UDP_CONTAINER_PORT}/udp
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - ${MEDIA_PATH_1}:${MEDIA_PATH_1}:ro
+      - ${MEDIA_SYMLINK_PATH_1}:${MEDIA_SYMLINK_PATH_1}:ro
+      
+      # Optional - extra fonts to be used during transcoding with subtitle burn-in
+      #- type: bind
+      #  source: /path/to/fonts
+      #  target: /usr/local/share/fonts/custom
+      #  read_only: true
+    restart: 'unless-stopped'
+    # Optional - alternative address used for autodiscovery
+    #environment:
+    #  - JELLYFIN_PublishedServerUrl=http://example.com
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
