@@ -11,6 +11,8 @@ services:
       - ./cache:/cache
       - ${MEDIA_PATH_1}:${MEDIA_PATH_1}:ro
       - ${MEDIA_SYMLINK_PATH_1}:${MEDIA_SYMLINK_PATH_1}:ro
+      - ${MEDIA_PATH_2}:${MEDIA_PATH_2}:ro
+      - ${MEDIA_SYMLINK_PATH_2}:${MEDIA_SYMLINK_PATH_2}:ro
       
       # Optional - extra fonts to be used during transcoding with subtitle burn-in
       #- type: bind

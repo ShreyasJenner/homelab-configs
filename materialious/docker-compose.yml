@@ -1,0 +1,38 @@
+services:
+  materialious:
+    image: wardpearce/materialious-full:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${HOST_PORT}:${CONTAINER_PORT}"
+    environment:
+      COOKIE_SECRET: ${MAT_COOKIE_SECRET}
+      DATABASE_CONNECTION_URI: "sqlite:///materialious-data/materialious.db"
+      PUBLIC_PLAYER_ID: ""
+
+      # Accounts
+      PUBLIC_INTERNAL_AUTH: "true"
+      PUBLIC_REQUIRE_AUTH: "true"          # keeps the proxy private to logged-in users
+      PUBLIC_REGISTRATION_ALLOWED: ${MAT_REGISTRATION}
+      PUBLIC_ADMIN_USERNAMES: ${MAT_ADMIN_USERS}
+      PUBLIC_CAPTCHA_DISABLED: "false"     # works because Tailscale serve gives HTTPS
+      PUBLIC_RATE_LIMIT_DISABLED: "false"
+
+      # Proxy
+      WHITELIST_BASE_DOMAIN: ""
+      PROXY_TRUST_CA: ""
+      PUBLIC_DANGEROUS_ALLOW_ANY_PROXY: "false"
+
+      # Backends
+      PUBLIC_DEFAULT_INVIDIOUS_INSTANCE: ${MAT_INVIDIOUS_URL}
+      PUBLIC_DEFAULT_RETURNYTDISLIKES_INSTANCE: "https://returnyoutubedislikeapi.com"
+      PUBLIC_DEFAULT_SPONSERBLOCK_INSTANCE: "https://sponsor.ajay.app"
+      PUBLIC_DEFAULT_DEARROW_INSTANCE: "https://sponsor.ajay.app"
+      PUBLIC_DEFAULT_DEARROW_THUMBNAIL_INSTANCE: "https://dearrow-thumb.ajay.app"
+
+      # Defaults applied on first load only
+      PUBLIC_DEFAULT_SETTINGS: '{"themeColor": "#2596be","region": "${REGION}"}'
+    volumes:
+      - materialious-data:/materialious-data
+
+volumes:
+  materialious-data:

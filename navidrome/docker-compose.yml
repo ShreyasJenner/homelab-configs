@@ -14,6 +14,15 @@ services:
       ND_LASTFM_APIKEY: ${ND_LASTFM_APIKEY}
       ND_LASTFM_SECRET: ${ND_LASTFM_SECRET}
       ND_LYRICSPRIORITY: ${ND_LYRICSPRIORITY}
+      ND_LISTENBRAINZ_ENABLED: ${LISTENBRAINZ_ENABLED}
+      ND_LISTENBRAINZ_BASEURL: ${LISTENBRAINZ_BASEURL}
     volumes:
       - "${DATA_DIR_PATH}:/data"
       - "${MUSIC_DIR_PATH}:/music:ro"
+    networks:
+      - default
+      - music
+
+networks:
+  music:
+    external: true

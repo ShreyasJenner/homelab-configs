@@ -1,0 +1,31 @@
+x-redlib-common: &redlib-common
+  image: redlib-local:latest
+  restart: unless-stopped
+  user: nobody
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  redlib-shreyas:
+    <<: *redlib-common
+    build:
+      context: https://github.com/redlib-org/redlib.git#main
+      dockerfile: Dockerfile.ubuntu
+    image: redlib-local:latest
+    restart: unless-stopped
+    container_name: "redlib-shreyas"
+    ports:
+      - "${HOST_PORT_S}:${CONTAINER_PORT_S}"
+    env_file: .env.shreyas
+
+  redlib-temple:
+    <<: *redlib-common
+    container_name: "redlib-temple"
+    ports:
+      - "${HOST_PORT_T}:${CONTAINER_PORT_T}"
+    env_file: .env.temple
+    depends_on:
+      - redlib-shreyas

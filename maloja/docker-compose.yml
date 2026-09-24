@@ -1,0 +1,20 @@
+services:
+  maloja:
+    image: krateng/maloja:latest
+    container_name: maloja
+    restart: unless-stopped
+    ports:
+      # Bound to localhost only: tailscale serve proxies to it, and Navidrome
+      # reaches Maloja over the shared "music" Docker network, not this port.
+      - "127.0.0.1:${HOST_PORT}:${CONTAINER_PORT}"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/mljdata          # config, database, images, logs (all in one place)
+    networks:
+      - default
+      - music
+
+networks:
+  music:
+    external: true               # created once with: docker network create music
