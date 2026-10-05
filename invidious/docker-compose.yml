@@ -27,7 +27,7 @@ services:
         invidious_companion_key: ${COMPANION_KEY}
         external_port: ${EXTERNAL_PORT}
         domain: ${DOMAIN}
-        popular_enabled: false
+        popular_enabled: true
         https_only: true
         registration_enabled: true
         statistics_enabled: false

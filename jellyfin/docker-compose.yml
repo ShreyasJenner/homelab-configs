@@ -13,6 +13,9 @@ services:
       - ${MEDIA_SYMLINK_PATH_1}:${MEDIA_SYMLINK_PATH_1}:ro
       - ${MEDIA_PATH_2}:${MEDIA_PATH_2}:ro
       - ${MEDIA_SYMLINK_PATH_2}:${MEDIA_SYMLINK_PATH_2}:ro
+      - ${MEDIA_PATH_3}:${MEDIA_PATH_3}:ro
+      - ${MEDIA_SYMLINK_PATH_3}:${MEDIA_SYMLINK_PATH_3}:ro
+      - ${MEDIA_PATH_4}:${MEDIA_PATH_4}:ro
       
       # Optional - extra fonts to be used during transcoding with subtitle burn-in
       #- type: bind

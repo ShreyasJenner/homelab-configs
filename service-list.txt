@@ -2,21 +2,21 @@ HOME SERVER — SERVICES & PORTS
 
 Service        Local->Docker Interal Port   Tailscale Port Scope
 ------------------------------------------------------------------------------------
-Nextcloud      8080->80 (db: 3306, int)     443            Funnel
+Nextcloud      8080->80 (db: 3306, int)     443             Funnel
 Navidrome      4533->4533                   6443
-Maloja         42010->42010                 42011
+Maloja         42010->42010                 42011           DISABLED
 slskd          5030-5031, 50300             5443
-Donetick       2021->2021                   10000          DISABLED
+Donetick       2021->2021                   10000           DISABLED
 Kavita         5000->5000                   7443
-OnlyOffice     9981->80 (443 int, unused)   8443           DISABLED
-EuroOffice     9981->80			           8443           Conflicts with OnlyOffice
+OnlyOffice     9981->80 (443 int, unused)   8443            DISABLED
+EuroOffice     9981->80			           8443             Conflicts with OnlyOffice
 qBittorrent    8090->8080, 6881 tcp/udp     9443
-tududi	       7010->7010		           8010	      	  DISABLED
+tududi	       7010->7010		           8010	      	    DISABLED
 mindwtr-cloud  6002->8787                   6020
 mindwtr-app    6001->5173 	               6010
-paperless-ngx  3239->8000                   3293
+paperless-ngx  3239->8000                   3293            DISABLED
 
-uptime-kuma    3001   		   	           3010		  HOST Network
+uptime-kuma    3001   		   	           3010		        HOST Network
 prometheus     9090->9090
 cadvisor       8082->8082
 grafana        4444->4444  		           4442

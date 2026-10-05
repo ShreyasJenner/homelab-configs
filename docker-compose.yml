@@ -3,3 +3,13 @@ include:
   - navidrome/docker-compose.yml
   - nextcloud/docker-compose.yml
   - slskd/docker-compose.yml
+  - qbittorrent/docker-compose.yml
+  - actual-budget/docker-compose.yml
+  - invidious/docker-compose.yml
+  - mindwtr/docker-compose.yml
+  - jellyfin/docker-compose.yml
+  - ntfy/docker-compose.yml
+  - redlib/docker-compose.yml
+  - uptime-kuma/docker-compose.yml
+  - monitoring/docker-compose.yml
+  - materialious/docker-compose.yml
