@@ -2,6 +2,9 @@ HOME SERVER — SERVICES & PORTS
 
 Service        Local->Docker Interal Port   Tailscale Port Scope
 ------------------------------------------------------------------------------------
+authentik      9444->9000    (https)        9445            DISABLED
+vaultwarden    9687->80                     9867
+
 Nextcloud      8080->80 (db: 3306, int)     443             Funnel
 Navidrome      4533->4533                   6443
 Maloja         42010->42010                 42011           DISABLED
@@ -31,10 +34,12 @@ jellyfin-tcp   8069->8096                   8096
 jellyfin-udp   7395->7359                   7359
 
 invidious      3000->3000                   2999
-materialious   2998->3000                   2997
+materialious   2998->3000                   2997            DISABLED
 
 redlib-shreyas 8778->8080                   8777
 redlib-temple  8776->8080                   8775
+
+dailytxt       9232->80                     9233
 
 WIREGUARD SIDECARS
 

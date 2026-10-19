@@ -36,3 +36,9 @@ services:
 
 volumes:
   materialious-data:
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 192.168.64.0/20

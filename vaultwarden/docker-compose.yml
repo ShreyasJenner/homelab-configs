@@ -1,0 +1,17 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    user: "1000:1000"      
+    ports:
+      - "127.0.0.1:9687:80"
+    environment:
+      DOMAIN: "https://debian-server.tailc65362.ts.net:9867"
+      SIGNUPS_ALLOWED: "false"
+      INVITATIONS_ALLOWED: "false"
+      ADMIN_TOKEN: "${ADMIN_TOKEN}"
+      LOG_LEVEL: "warn"
+      TZ: "America/Los_Angeles"
+    volumes:
+      - ./data:/data

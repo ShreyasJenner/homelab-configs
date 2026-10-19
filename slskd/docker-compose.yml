@@ -41,3 +41,10 @@ services:
       - ${SLSKD_APP_DIR}:/app
       - ${SLSKD_MUSIC_DIR}:/app/shared/music:ro
     restart: unless-stopped
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
